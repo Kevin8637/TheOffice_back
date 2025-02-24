@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS Employee
     seniority INT                NOT NULL,
     salary DECIMAL(10, 2)     NOT NULL,
     level  INT                NOT NULL,
-    mood ENUM ('heureux', 'neutre','en colère') NOT NULL DEFAULT 'heureux',
+    mood ENUM ('mauvaise', 'bonne', 'neutre', 'heureuse', 'bof') NOT NULL DEFAULT 'bonne',
     status   ENUM ('actif', 'inactif') NOT NULL DEFAULT 'actif',
     job ENUM ('marketing', 'vente', 'production') NOT NULL,
     health INT
