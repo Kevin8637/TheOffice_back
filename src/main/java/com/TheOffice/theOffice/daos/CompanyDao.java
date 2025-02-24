@@ -40,16 +40,17 @@ public class CompanyDao {
         return jdbcTemplate.query(sql, companyRowMapper);
     }
 
-    public int save(String email, Date invoice_date, double total_price) {
-        String sql = "INSERT INTO invoice (email, invoice_date, total_price) VALUES (?, ?, ?)";
+    public int save(String sector, String name, Date creation_date, Long id_company) {
+        String sql = "INSERT INTO Company (sector, name, creation_date, id_company) VALUES (?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, email);
-            ps.setDate(2, new java.sql.Date(invoice_date.getTime()));
-            ps.setDouble(3, total_price);
+            ps.setString(1, sector);
+            ps.setString(2, name);
+            ps.setDate(3, new java.sql.Date(creation_date.getTime()));
+            ps.setLong(4, id_company);
             return ps;
         }, keyHolder);
 
@@ -58,7 +59,7 @@ public class CompanyDao {
 
     public Company update(Long id, Company company) {
         if (!companyExists(id)) {
-            throw new RuntimeException("Facture avec l'ID : " + id + " n'existe pas");
+            throw new RuntimeException("Entreprise avec l'ID : " + id + " n'existe pas");
         }
 
         String sql = "UPDATE Company SET sector = ?, name = ?, creation_date = ? WHERE id_user = ?";
