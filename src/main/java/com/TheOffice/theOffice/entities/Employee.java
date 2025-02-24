@@ -67,7 +67,7 @@ enum Sex {
 }
 
 enum Mood {
-    HEUREUX, NEUTRE, EN_COLERE;
+    mauvaise, bonne, neutre, heureuse, bof;
 }
 
 enum Status {
