@@ -40,7 +40,7 @@ public class StockMaterialDao {
     }
 
     public int save(String name, Integer quantity, Long id_company) {
-        String sql = "INSERT INTO StockMaterial (name quantity, id_company) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO StockMaterial (name, quantity, id_company) VALUES (?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
