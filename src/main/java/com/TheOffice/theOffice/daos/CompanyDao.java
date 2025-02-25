@@ -24,7 +24,7 @@ public class CompanyDao {
             rs.getString("sector"),
             rs.getString("name"),
             rs.getDate("creation_date"),
-            rs.getLong("id_company")
+            rs.getLong("id_user")
     );
 
     public Company findById(Long id) {
@@ -40,8 +40,8 @@ public class CompanyDao {
         return jdbcTemplate.query(sql, companyRowMapper);
     }
 
-    public int save(String sector, String name, Date creation_date, Long id_company) {
-        String sql = "INSERT INTO Company (sector, name, creation_date, id_company) VALUES (?, ?, ?, ?)";
+    public int save(String sector, String name, Date creation_date, Long id_user) {
+        String sql = "INSERT INTO Company (sector, name, creation_date, id_user) VALUES (?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -50,7 +50,7 @@ public class CompanyDao {
             ps.setString(1, sector);
             ps.setString(2, name);
             ps.setDate(3, new java.sql.Date(creation_date.getTime()));
-            ps.setLong(4, id_company);
+            ps.setLong(4, id_user);
             return ps;
         }, keyHolder);
 
@@ -62,7 +62,7 @@ public class CompanyDao {
             throw new RuntimeException("Entreprise avec l'ID : " + id + " n'existe pas");
         }
 
-        String sql = "UPDATE Company SET sector = ?, name = ?, creation_date = ? WHERE id_user = ?";
+        String sql = "UPDATE Company SET sector = ?, name = ?, creation_date = ?, id_user = ? WHERE id = ?";
         int rowsAffected = jdbcTemplate.update(sql, company.getSector(), company.getName(), company.getCreation_date(), company.getId_user(), id);
 
         if (rowsAffected <= 0) {
