@@ -1,4 +1,4 @@
-package com.TheOffice.theOffice.entities;
+package com.TheOffice.theOffice.entities.Machine;
 
 import java.math.BigDecimal;
 
@@ -36,7 +36,3 @@ public class Machine {
     public void setMaintenanceCost(BigDecimal maintenanceCost) { this.maintenanceCost = maintenanceCost; }
 }
 
-// Enum pour production_quality
-enum ProductionQuality {
-    MEDIOCRE, NORMAL, BONNE, PERFORMANTE;
-}
