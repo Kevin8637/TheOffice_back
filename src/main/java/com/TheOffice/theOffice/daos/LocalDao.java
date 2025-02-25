@@ -1,12 +1,12 @@
 package com.TheOffice.theOffice.daos;
 
-import com.TheOffice.theOffice.entities.Loan;
 import com.TheOffice.theOffice.entities.Local.Local;
 import com.TheOffice.theOffice.entities.Local.LocalLevel;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.util.List;
 
 //GET, POST, PUT
+@Repository
 public class LocalDao {
 
     private final JdbcTemplate jdbcTemplate;
