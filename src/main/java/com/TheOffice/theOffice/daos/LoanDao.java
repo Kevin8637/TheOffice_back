@@ -1,4 +1,80 @@
 package com.TheOffice.theOffice.daos;
 
+import com.TheOffice.theOffice.entities.Loan;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+import java.math.BigDecimal;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.util.List;
+
+//GET, POST, PUT
 public class LoanDao {
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public LoanDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    private final RowMapper<Loan> loanRowMapper = (rs, _) -> new Loan (
+            rs.getLong("id"),
+            rs.getBigDecimal("loanAmount"),
+            rs.getBigDecimal("interestRate"),
+            rs.getInt("duration"),
+            rs.getBigDecimal("rest"),
+            rs.getLong("id_user")
+    );
+
+    public List<Loan> findAll(){
+        String sql = "SELECT * FROM Loan";
+        return jdbcTemplate.query(sql, loanRowMapper);
+    }
+
+    public Loan findById(Long id){
+        String sql = "SELECT * FROM Loan WHERE id = ?";
+        return jdbcTemplate.query(sql, loanRowMapper)
+                .stream()
+                .findFirst()
+                .orElseThrow(()-> new RuntimeException("Emprunt non trouvé"));
+    }
+
+    public int save(BigDecimal loanAmount, BigDecimal interestRate, Integer duration, BigDecimal rest, Long id_user) {
+        String sql = "INSERT INTO Loan (loanAmount, interestRate, duration, rest, id_user) VALUES (?, ?, ?, ?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setBigDecimal(1, loanAmount);
+            ps.setBigDecimal(2, interestRate);
+            ps.setInt(3, duration);
+            ps.setBigDecimal(4, rest);
+            ps.setLong(5, id_user);
+            return ps;
+        }, keyHolder);
+
+        return keyHolder.getKey().intValue();
+    }
+
+    public Loan update(Long id, Loan loan) {
+        if (!loanExists(id)) {
+            throw new RuntimeException("Emprunt avec l'ID : " + id + " n'existe pas");
+        }
+
+        String sql = "UPDATE Loan SET loanAmount = ?, interestRate = ?, duration = ?, rest = ?, id_user = ? WHERE id = ?";
+        int rowsAffected = jdbcTemplate.update(sql, loan.getLoanAmount(), loan.getInterestRate(), loan.getDuration(), loan.getRest(), loan.getId_user(), id);
+
+        if (rowsAffected <= 0) {
+            throw new RuntimeException("Échec de la mise à jour de l'emprunt avec l'ID : " + id);
+        }
+        return loan;
+    }
+
+    public boolean loanExists(Long id) {
+        String sql = "SELECT COUNT(*) FROM Loan WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, id) > 0;
+    }
 }

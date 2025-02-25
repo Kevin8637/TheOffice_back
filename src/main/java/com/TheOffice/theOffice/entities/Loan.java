@@ -8,7 +8,7 @@ public class Loan {
     private BigDecimal interestRate;
     private Integer duration;
     private BigDecimal rest;
-    private Long userId;
+    private Long id_user;
 
     public Loan() {
     }
@@ -19,7 +19,7 @@ public class Loan {
         this.interestRate = interestRate;
         this.duration = duration;
         this.rest = rest;
-        this.userId = userId;
+        this.id_user = id_user;
     }
 
     // Getters et Setters
@@ -38,6 +38,6 @@ public class Loan {
     public BigDecimal getRest() { return rest; }
     public void setRest(BigDecimal rest) { this.rest = rest; }
 
-    public Long getUserId() { return userId; }
-    public void setUserId(Long userId) { this.userId = userId; }
+    public Long getId_user() { return id_user; }
+    public void setId_user(Long id_user) { this.id_user = id_user; }
 }
