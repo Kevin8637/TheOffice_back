@@ -1,4 +1,4 @@
-package com.TheOffice.theOffice.entities;
+package com.TheOffice.theOffice.entities.Local;
 
 import java.math.BigDecimal;
 
@@ -9,19 +9,19 @@ public class Local {
     private BigDecimal rent;
     private Integer maxEmployees;
     private Integer maxMachines;
-    private Long companyId;
+    private Long id_company;
 
     public Local() {
     }
 
-    public Local(Long id, LocalLevel level, Integer size, BigDecimal rent, Integer maxEmployees, Integer maxMachines, Long companyId) {
+    public Local(Long id, LocalLevel level, Integer size, BigDecimal rent, Integer maxEmployees, Integer maxMachines, Long id_company) {
         this.id = id;
         this.level = level;
         this.size = size;
         this.rent = rent;
         this.maxEmployees = maxEmployees;
         this.maxMachines = maxMachines;
-        this.companyId = companyId;
+        this.id_company = id_company;
     }
 
     public Long getId() { return id; }
@@ -42,11 +42,7 @@ public class Local {
     public Integer getMaxMachines() { return maxMachines; }
     public void setMaxMachines(Integer maxMachines) { this.maxMachines = maxMachines; }
 
-    public Long getCompanyId() { return companyId; }
-    public void setCompanyId(Long companyId) { this.companyId = companyId; }
+    public Long getId_company() { return id_company; }
+    public void setId_company(Long id_company) { this.id_company = id_company; }
 }
 
-// Définition de l'ENUM pour le niveau du local
-enum LocalLevel {
-    PETIT_LOCAL, MOYEN_LOCAL, GRAND_LOCAL;
-}
