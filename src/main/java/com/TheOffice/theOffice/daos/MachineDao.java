@@ -74,6 +74,11 @@ public class MachineDao {
         return machine;
     }
 
+    public boolean delete(Long id) {
+        String sql = "DELETE FROM Machine WHERE id = ?";
+        return jdbcTemplate.update(sql, id) > 0;
+    }
+
     public boolean machineExists(Long id) {
         String sql = "SELECT COUNT(*) FROM Machine WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class, id) > 0;
