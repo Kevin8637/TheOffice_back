@@ -1,4 +1,4 @@
-package com.TheOffice.theOffice.entities;
+package com.TheOffice.theOffice.entities.Employee;
 
 import java.math.BigDecimal;
 
@@ -61,19 +61,3 @@ public class Employee {
     public void setHealth(Integer health) { this.health = health; }
 }
 
-// Définition des ENUMS
-enum Sex {
-    HOMME, FEMME;
-}
-
-enum Mood {
-    mauvaise, bonne, neutre, heureuse, bof;
-}
-
-enum Status {
-    ACTIF, INACTIF;
-}
-
-enum Job {
-    MARKETING, VENTE, PRODUCTION;
-}
